@@ -6,14 +6,13 @@ class User < ApplicationRecord
 
   has_many :books, dependent: :destroy
   has_many :favorites, dependent: :destroy
-  has_many :bads, dependent: :destroy
   has_many :book_comments, dependent: :destroy
 
-has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
-has_many :followings, through: :relationships, source: :followed
+  has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :followings, through: :relationships, source: :followed
 
-has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
-has_many :followers, through: :passive_relationships, source: :follower
+  has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :followers, through: :passive_relationships, source: :follower
 
   has_one_attached :profile_image
 
@@ -37,7 +36,7 @@ has_many :followers, through: :passive_relationships, source: :follower
   def following?(user)
     followings.include?(user)
   end
-  
+
   def self.looks(search, word)
     if search == "perfect_match"
       @user = User.where("name LIKE?", "#{word}")
