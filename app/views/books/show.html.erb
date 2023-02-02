@@ -18,15 +18,7 @@
           </td>
           <td><%= link_to @bookid.title, @bookid %></td>
           <td><%= @bookid.body %></td>
-          <% if @bookid.favorited_by?(current_user) %>
-            <td><%= link_to book_favorites_path(@bookid), method: :delete do %>
-                  <i class="fas fa-thumbs-up"></i>
-                <% end %><%= @bookid.favorites.count %></td>
-          <% else %>
-            <td><%= link_to book_favorites_path(@bookid), method: :post do %>
-                  <i class="far fa-thumbs-up"></i>
-                <% end %><%= @bookid.favorites.count %></td>
-          <% end %>
+          <td id="favorite_buttons_<%= @bookid.id %>"><%= render 'favorites/favorite', bookid: @bookid %></td>
           <td>💬<%= @bookid.book_comments.count %></td>
           <% if @user.id == current_user.id %>
             <td><%= link_to 'Edit', edit_book_path(@bookid), class: "btn btn-sm btn-success" %></td>
