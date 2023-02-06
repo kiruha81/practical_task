@@ -1,0 +1,19 @@
+<table>
+  <tbody>
+    <% bookid.book_comments.each do |book_comment| %>
+    <tr>
+      <td><%= link_to(bookid.user) do %>
+        <%= image_tag book_comment.user.get_profile_image, size: '50x50' %><br>
+        <div class='text-dark'><%= book_comment.user.name %></div>
+        <% end %>
+      </td>
+      <td><%= book_comment.comment %></td>
+      <td><%= book_comment.created_at.strftime('%Y/%m/%d(%a) %R') %></td>
+        <% if book_comment.user == current_user %>
+          <td><%= link_to 'Destroy', book_book_comment_path(bookid, book_comment), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger", remote: true %></td>
+        <% end %>
+    <% end %>
+    </tr>
+  </tbody>
+</table>
+

@@ -10,8 +10,8 @@
     <% users.each do |user| %>
       <tr>
         <td><%= image_tag user.get_profile_image, size: '50x50' %></td>
-        <td><%= user.name %></td>
-        <td><%= link_to 'Show', user, class: "btn btn-sm btn-primary" %></td>
+        <td class='text-dark'><%= user.name %></td>
+        <div class="follow_btn_<%= user.id %>"><td><%= link_to 'Show', user, class: "btn btn-sm btn-primary" %></td>
         <% if current_user.following?(user) %>
           <td><%= link_to 'Unfollow', user_relationships_path(user), method: :delete, class: "btn btn-sm btn-danger" %></td>
         <% else %>
@@ -20,7 +20,7 @@
           <% else %>
             <td><%= link_to 'Follow', user_relationships_path(user), method: :post, class: "btn btn-sm btn-info" %></td>
           <% end %>
-        <% end %>
+        <% end %></div>
       </tr>
     <% end %>
   </tbody>

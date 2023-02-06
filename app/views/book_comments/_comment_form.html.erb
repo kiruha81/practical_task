@@ -1,0 +1,4 @@
+<%= form_with(model: [@bookid, @book_comment], local: false) do |f| %>
+  <td><%= f.text_area :comment, size: "48x1", placeholder: "Comment here." %></td>
+  <td><%= f.submit "Send Comment", class: 'submit_btn' %></td>
+<% end %>
