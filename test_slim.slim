@@ -1,0 +1,35 @@
+.row
+  .col-xs-2
+
+  .col-xs-8
+    table.table
+      thead
+        tr
+          th
+            | 氏名
+          th
+            | 自己紹介
+          th
+          th
+
+      tbody
+        tr
+          td
+            = @user.name
+          td
+            = @user.introduction
+          td
+            - unless @user.id == current_user.id
+              - if @is_room == true
+                = link_to 'メッセージ', room_path(@room_id), class: 'btn-sm btn-success'
+
+              - else
+                = form_with model: @room, url: rooms_path, local: true do |f|
+                  = fields_for @entry do |e|
+                    = e.hidden_field :user_id, value: @user.id
+                  = f.submit 'メッセージ', class: 'btn-sm btn-success'
+          td
+            - if @user == current_user
+              = link_to '編集', edit_user_path(@user), class: 'btn-sm btn-primary'
+
+  .col-xs-2
