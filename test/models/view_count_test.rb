@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ChatsControllerTest < ActionDispatch::IntegrationTest
+class ViewCountTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

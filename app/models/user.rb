@@ -14,8 +14,18 @@ class User < ApplicationRecord
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :follower
 
-  has_many :user_rooms, dependent: :destroy
-  has_many :chats, dependent: :destroy
+  has_many :user_rooms
+  has_many :chats
+  has_many :rooms, through: :user_rooms
+
+  has_many :view_counts, dependent: :destroy
+
+  has_many :belongings, dependent: :destroy
+  has_many :applies, dependent: :destroy
+  has_many :communities, through: :belongings
+
+  has_many :group_users
+  has_many :groups, through: :group_users
 
   has_one_attached :profile_image
 

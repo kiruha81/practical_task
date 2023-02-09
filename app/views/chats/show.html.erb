@@ -1,12 +1,21 @@
-<h1>Chats#show</h1>
-<p>Find me in app/views/chats/show.html.erb</p>
+<h1 id="room" data-room="<%= @room.id %>" data-user="<%= current_user.id %>">
+Chat<h3 class="text-success"><%= @user.name %></div></h3>
 
-<div id="chats" data-room_id="<%= @room.id %>">
-  <label for="message">Chat Text</label><br>
-  <textarea name="message" id="message" cols="30" rows="10"></textarea><br>
-  <small>Shift + Enterで送信</small>
-  <h2>Chats --></h2>
-  <% @room.chats.each do |message| %>
-    <%= render partial: 'message', locals: { message: message, current_user: nil } %>
+<div class="message" style="width: 400px;">
+  <% @chats.each do |chat| %>
+    <% if chat.user_id == current_user.id %>
+      <p style="text-align: right;"><%= chat.message %> <%= image_tag current_user.get_profile_image, size:"40x40" %></p>
+    <% else %>
+      <p style="text-align: left;"><%= image_tag @user.get_profile_image, size:"40x40" %> <%= chat.message %></p>
+    <% end %>
   <% end %>
 </div>
+
+<div class="errors">
+  <%= render "layouts/errors", obj: @chat %>
+</div>
+
+<%= form_with model: @chat, data: {remote: true} do |f| %>
+  <%= f.text_field :message %>
+  <%= f.hidden_field :room_id %>
+<% end %>
