@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'applies/show'
   devise_for :users
   root to: "homes#top"
   get "home/about" => "homes#about"
@@ -14,7 +13,7 @@ Rails.application.routes.draw do
   end
   get 'search' => 'searches#search'
   resources :chats, only: [:show, :create]
-  resources :groups, except: [:destroy] do
+  resources :groups do
     get "join" => "groups#join"
   end
 end
