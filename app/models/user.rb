@@ -24,12 +24,11 @@ class User < ApplicationRecord
   has_many :applies, dependent: :destroy
   has_many :communities, through: :belongings
 
-  has_many :group_users
-  has_many :groups, through: :group_users
+  has_many :group_users, dependent: :destroy
 
   has_one_attached :profile_image
 
-    validates :name, presence: true
+  validates :name, presence: true
   validates :name, uniqueness: true
   validates :name, length: { minimum: 2 }
   validates :name, length: { maximum: 20 }
